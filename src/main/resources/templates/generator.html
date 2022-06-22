@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор случайных фэнтези-имён</title>
+    <style type="text/css">
+
+    body {
+        background:#c7b9af;
+    }
+
+    .modal{
+        font-size: 25px;
+        font-family: 'Times New Roman', 'Helvetica Nue', sans-serif;
+        padding: 50px;
+        background: #ebdcd1;
+        position: fixed; top: 50%; left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    input[type=submit] {
+        background-color: #915746;
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .result {
+        font-size: 20px;
+        font-family: 'Georgia', 'Helvetica Nue', sans-serif;
+    }
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <h4>Генератор случайных фэнтези-имён</h4>
+        <form th:method="POST" th:action="@{/}" th:object="${nameParams}">
+            <label>Выберете пол:</label>
+            <br>
+            <input type="radio" id="male" th:field="*{gender}" value="male" checked>
+            <label for="male">Мужской</label><br>
+            <input type="radio" id="female" th:field="*{gender}" value="female">
+            <label for="female">Женский</label><br>
+
+            <br>
+            <label>Выберете расу:</label>
+            <br>
+            <input type="radio" id="human" th:field="*{race}" value="human" checked>
+            <label for="human">Человек</label><br>
+            <input type="radio" id="orc" th:field="*{race}" value="orc">
+            <label for="orc">Орк</label><br>
+            <input type="radio" id="elf" th:field="*{race}" value="elf">
+            <label for="human">Эльф</label><br>
+
+            <br>
+            <input type="submit" value="Сгенерировать">
+
+            <br>
+            <br>
+            <label><b>Сгенерированное имя:</b></label>
+            <div class="result">
+                <table id="each">
+                    <tr th:each="name : ${generatedNames}">
+                        <td th:text="${name}"></td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
